@@ -1,16 +1,17 @@
 import pygame
 
 class Cursor:
-    def __init__(self, fila, columna):
+    def __init__(self, fila, columna, n=3):
         self.fila = fila
         self.columna = columna
-    
+        self.n = n
+
     def moverArriba(self):
         if self.fila > 0:
             self.fila -= 1
 
     def moverAbajo(self):
-        if self.fila < 2:
+        if self.fila < self.n - 1:
             self.fila += 1
 
     def moverIzquierda(self):
@@ -18,7 +19,7 @@ class Cursor:
             self.columna -= 1
 
     def moverDerecha(self):
-        if self.columna < 2:
+        if self.columna < self.n - 1:
             self.columna += 1
 
     def getFila(self):
