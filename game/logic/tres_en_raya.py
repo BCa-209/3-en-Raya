@@ -14,6 +14,12 @@ class TresEnRaya:
         self.ganador = self.VACIO
         self.ultima_ficha = None
 
+        # Estadísticas (se mantienen entre partidas)
+        self.partidas_jugadas = 0
+        self.victorias_x = 0
+        self.victorias_o = 0
+        self.empates = 0
+
     def getMatriz(self):
         return self.matriz
 
@@ -31,7 +37,6 @@ class TresEnRaya:
 
         # ---- MODO INFINITO: mantener solo los últimos 7 movimientos ----
         if self.infinito:
-            # Si ya hay 7 movimientos, eliminar el más antiguo del tablero
             if len(self.movimientos) == 7:
                 f_vieja, c_vieja, _ = self.movimientos.popleft()
                 self.matriz[f_vieja][c_vieja] = self.VACIO
@@ -99,3 +104,33 @@ class TresEnRaya:
         self.ultima_ficha = None
         if self.infinito:
             self.movimientos.clear()   # vaciar la cola
+
+    def registrar_resultado(self):
+        """Actualiza estadísticas al finalizar la partida"""
+        self.partidas_jugadas += 1
+        if self.ganador == self.FICHA_X:
+            self.victorias_x += 1
+        elif self.ganador == self.FICHA_O:
+            self.victorias_o += 1
+        else:
+            self.empates += 1
+
+    def reiniciar(self):
+        self.matriz = [[self.VACIO] * self.n for _ in range(self.n)]
+        self.turno = self.FICHA_X
+        self.ganador = self.VACIO
+        self.ultima_ficha = None
+        if self.infinito:
+            self.movimientos.clear()
+
+    def reiniciar_juego_completo(self, nuevo_n=None, nuevo_infinito=None):
+        """Reinicia el juego pero mantiene las estadísticas"""
+        if nuevo_n is not None:
+            self.n = nuevo_n
+        if nuevo_infinito is not None:
+            self.infinito = nuevo_infinito
+        self.matriz = [[self.VACIO] * self.n for _ in range(self.n)]
+        self.movimientos = deque() if self.infinito else None
+        self.turno = self.FICHA_X
+        self.ganador = self.VACIO
+        self.ultima_ficha = None
