@@ -27,8 +27,6 @@ class EscenaJuego(Escena):
         self.xTurno.setColor(self.game_state.color_x)
         self.oTurno = O(ANCHO - 80, 30, self.e//2)
         self.oTurno.setColor(self.game_state.color_o)
-        self.incXTurno = 0.5
-        self.incYTurno = 0.5
 
     def input(self, evento):
         if self.juego.getGanador() != TresEnRaya.VACIO or self.juego.hayEmpate():
@@ -50,6 +48,7 @@ class EscenaJuego(Escena):
             self.juego.jugar(fila, columna)
 
     def update(self):
+        # Verificar fin del juego
         if self.juego.getGanador() != TresEnRaya.VACIO:
             from game.scenes.escena_game_over import GameOverScene
             self.game_state.cambiar_escena(GameOverScene(self.game_state, self.juego.getGanador()))
@@ -59,15 +58,19 @@ class EscenaJuego(Escena):
             self.game_state.cambiar_escena(GameOverScene(self.game_state, 0))
             return
 
-        # Animación del indicador de turno
-        if self.juego.getTurno() == TresEnRaya.FICHA_X:
-            if self.xTurno.e >= 0.5*self.e or self.xTurno.e <= self.e//4:
-                self.incXTurno = -self.incXTurno
-            self.xTurno.e += self.incXTurno
-        else:
-            if self.oTurno.e >= 0.5*self.e or self.oTurno.e <= self.e//4:
-                self.incYTurno = -self.incYTurno
-            self.oTurno.e += self.incYTurno
+        # Actualizar animación del cursor
+        self.cursor.update_animacion()
+        
+        # Actualizar animación de turno
+        turno_actual = self.juego.getTurno()
+        
+        # Activar animación en la ficha que tiene el turno
+        self.xTurno.set_turno(turno_actual == TresEnRaya.FICHA_X)
+        self.oTurno.set_turno(turno_actual == TresEnRaya.FICHA_O)
+        
+        # Actualizar animaciones de las fichas de turno
+        self.xTurno.update_animacion()
+        self.oTurno.update_animacion()
 
     def render(self, pantalla):
         self.tablero.render(pantalla)
@@ -97,5 +100,3 @@ class EscenaJuego(Escena):
     def reiniciar(self):
         self.juego.reiniciar()
         self.cursor = Cursor(self.n//2, self.n//2, self.n)
-        self.xTurno.alfa = 0
-        self.oTurno.alfa = 0
