@@ -59,10 +59,12 @@ class EscenaJuego(Escena):
         if self.juego.getGanador() != TresEnRaya.VACIO:
             from game.scenes.escena_game_over import GameOverScene
             self.game_state.cambiar_escena(GameOverScene(self.game_state, self.juego.getGanador()))
+            self.game_state.reproducir_sonido('victoria')
             return
         if self.juego.hayEmpate():
             from game.scenes.escena_game_over import GameOverScene
             self.game_state.cambiar_escena(GameOverScene(self.game_state, 0))
+            self.game_state.reproducir_sonido('empate')
             return
 
         # Actualizar animación del cursor
