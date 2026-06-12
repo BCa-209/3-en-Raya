@@ -16,9 +16,12 @@ class MenuScene(Escena):
         if evento.type == pygame.KEYDOWN:
             if evento.key == TECLA_ARRIBA:
                 self.seleccion = (self.seleccion - 1) % len(self.opciones)
+                self.game_state.reproducir_sonido('movimiento')
             elif evento.key == TECLA_ABAJO:
                 self.seleccion = (self.seleccion + 1) % len(self.opciones)
+                self.game_state.reproducir_sonido('movimiento')
             elif evento.key == TECLA_ACEPTAR:
+                self.game_state.reproducir_sonido('seleccion')
                 self.seleccionar_opcion()
 
     def seleccionar_opcion(self):

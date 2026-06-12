@@ -36,16 +36,23 @@ class EscenaJuego(Escena):
 
         if evento.key == TECLA_ARRIBA:
             self.cursor.moverArriba()
+            self.game_state.reproducir_sonido('movimiento')
         elif evento.key == TECLA_ABAJO:
             self.cursor.moverAbajo()
+            self.game_state.reproducir_sonido('movimiento')
         elif evento.key == TECLA_IZQUIERDA:
             self.cursor.moverIzquierda()
+            self.game_state.reproducir_sonido('movimiento')
         elif evento.key == TECLA_DERECHA:
             self.cursor.moverDerecha()
+            self.game_state.reproducir_sonido('movimiento')
         elif evento.key == TECLA_ACEPTAR:
             fila = self.cursor.getFila()
             columna = self.cursor.getColumna()
-            self.juego.jugar(fila, columna)
+            if self.juego.jugar(fila, columna):
+                self.game_state.reproducir_sonido('colocar')
+            else:
+                self.game_state.reproducir_sonido('error')
 
     def update(self):
         # Verificar fin del juego

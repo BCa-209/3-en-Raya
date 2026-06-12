@@ -2,6 +2,7 @@ import pygame
 import sys
 from config import ANCHO, ALTO, COLOR_NEGRO, FPS, CAPTION, ESCALA_BASE, TAM_TABLERO_POR_DEFECTO, COLORES_FICHAS, COLORES_CURSOR
 from game.scenes.escena_menu import MenuScene
+from game.sounds.sonidos import SoundManager
 
 class GameState:
     def __init__(self):
@@ -25,6 +26,26 @@ class GameState:
         self.victorias_x = 0
         self.victorias_o = 0
         self.empates = 0
+
+        # sonidos
+        print("iniciando sonidosssssss")
+        self.sonidos = SoundManager()
+        self.sonido_activado = True
+
+        # control sonido
+        self.sonido_activado = True
+    
+    def toggle_sonido(self):
+        """Activar/desactivar sonidos"""
+        self.sonido_activado = not self.sonido_activado
+        if not self.sonido_activado:
+            self.sonidos.detener_todos()
+        print(f"Sonido {'activado' if self.sonido_activado else 'desactivado'}")
+    
+    def reproducir_sonido(self, nombre):
+        """Reproducir sonido si está activado"""
+        if self.sonido_activado:
+            self.sonidos.reproducir(nombre)
 
     def cambiar_escena(self, nueva_escena):
         self.escena_actual = nueva_escena
