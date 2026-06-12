@@ -1,6 +1,7 @@
 import pygame
+import sys
 from core.escena import Escena
-from config import ANCHO, ALTO, COLOR_BLANCO, COLOR_NEGRO, COLOR_AMARILLO
+from config import *
 
 class MenuScene(Escena):
     def __init__(self, game_state):
@@ -11,11 +12,11 @@ class MenuScene(Escena):
 
     def input(self, evento):
         if evento.type == pygame.KEYDOWN:
-            if evento.key == pygame.K_UP:
+            if evento.key == TECLA_ARRIBA:
                 self.seleccion = (self.seleccion - 1) % len(self.opciones)
-            elif evento.key == pygame.K_DOWN:
+            elif evento.key == TECLA_ABAJO:
                 self.seleccion = (self.seleccion + 1) % len(self.opciones)
-            elif evento.key == pygame.K_RETURN:
+            elif evento.key == TECLA_ACEPTAR:
                 self.seleccionar_opcion()
 
     def seleccionar_opcion(self):

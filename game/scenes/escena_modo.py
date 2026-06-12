@@ -1,6 +1,6 @@
 import pygame
 from core.escena import Escena
-from config import ANCHO, ALTO, COLOR_BLANCO, COLOR_VERDE
+from config import *
 
 class ModoScene(Escena):
     def __init__(self, game_state):
@@ -11,17 +11,17 @@ class ModoScene(Escena):
 
     def input(self, evento):
         if evento.type == pygame.KEYDOWN:
-            if evento.key == pygame.K_LEFT:
+            if evento.key == TECLA_IZQUIERDA:
                 self.seleccion = (self.seleccion - 1) % len(self.tamanos)
-            elif evento.key == pygame.K_RIGHT:
+            elif evento.key == TECLA_DERECHA:
                 self.seleccion = (self.seleccion + 1) % len(self.tamanos)
-            elif evento.key == pygame.K_RETURN:
+            elif evento.key == TECLA_ACEPTAR:
                 nuevo_tam = self.tamanos[self.seleccion]
                 self.game_state.cambiar_tam_tablero(nuevo_tam)
-                from game.scenes.menu_scene import MenuScene
+                from game.scenes.escena_menu import MenuScene
                 self.game_state.cambiar_escena(MenuScene(self.game_state))
-            elif evento.key == pygame.K_ESCAPE:
-                from game.scenes.menu_scene import MenuScene
+            elif evento.key == TECLA_CANCELAR:
+                from game.scenes.escena_menu import MenuScene
                 self.game_state.cambiar_escena(MenuScene(self.game_state))
 
     def update(self):

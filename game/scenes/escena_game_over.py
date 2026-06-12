@@ -1,6 +1,6 @@
 import pygame
 from core.escena import Escena
-from config import ANCHO, ALTO, COLOR_BLANCO, COLOR_ROJO, COLOR_CYAN
+from config import ANCHO, ALTO, COLOR_BLANCO, COLOR_ROJO, COLOR_CYAN, TECLA_IZQUIERDA, TECLA_DERECHA, TECLA_ARRIBA, TECLA_ABAJO, TECLA_ACEPTAR, TECLA_CANCELAR
 
 class GameOverScene(Escena):
     def __init__(self, game_state, ganador):
@@ -11,9 +11,9 @@ class GameOverScene(Escena):
 
     def input(self, evento):
         if evento.type == pygame.KEYDOWN:
-            if evento.key == pygame.K_RETURN or evento.key == pygame.K_SPACE:
+            if evento.key == TECLA_ACEPTAR or evento.key == TECLA_CANCELAR:
                 # Volver al menú principal o reiniciar juego
-                from game.scenes.menu_scene import MenuScene
+                from game.scenes.escena_menu import MenuScene
                 self.game_state.reiniciar_juego()  # opcional: reinicia el estado interno
                 self.game_state.cambiar_escena(MenuScene(self.game_state))
 

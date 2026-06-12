@@ -2,7 +2,7 @@ import pygame
 from core.escena import Escena
 from game.entities import Tablero, Cursor, X, O
 from game.logic import TresEnRaya
-
+from config import TECLA_IZQUIERDA, TECLA_DERECHA, TECLA_ARRIBA, TECLA_ABAJO, TECLA_ACEPTAR, TECLA_CANCELAR
 class EscenaJuego(Escena):
     def __init__(self, game_state):
         self.game_state = game_state
@@ -34,15 +34,15 @@ class EscenaJuego(Escena):
         if evento.type != pygame.KEYDOWN:
             return
 
-        if evento.key == pygame.K_UP:
+        if evento.key == TECLA_ARRIBA:
             self.cursor.moverArriba()
-        elif evento.key == pygame.K_DOWN:
+        elif evento.key == TECLA_ABAJO:
             self.cursor.moverAbajo()
-        elif evento.key == pygame.K_LEFT:
+        elif evento.key == TECLA_IZQUIERDA:
             self.cursor.moverIzquierda()
-        elif evento.key == pygame.K_RIGHT:
+        elif evento.key == TECLA_DERECHA:
             self.cursor.moverDerecha()
-        elif evento.key == pygame.K_RETURN:
+        elif evento.key == TECLA_ACEPTAR:
             fila = self.cursor.getFila()
             columna = self.cursor.getColumna()
             if self.juego.jugar(fila, columna):
