@@ -1,8 +1,8 @@
 """Constantes globales del juego"""
 
 # Dimensiones de la pantalla
-ANCHO = 600
-ALTO = 400
+ANCHO = 800
+ALTO = 600
 
 # Configuración de Pygame
 FPS = 60
@@ -28,3 +28,23 @@ TECLA_ARRIBA = pygame.K_UP
 TECLA_ABAJO = pygame.K_DOWN
 TECLA_ACEPTAR = pygame.K_SPACE
 TECLA_CANCELAR = pygame.K_ESCAPE
+
+
+TECLAS = [
+    TECLA_IZQUIERDA, 
+    TECLA_DERECHA, 
+    TECLA_ARRIBA, 
+    TECLA_ABAJO, 
+    TECLA_ACEPTAR, 
+    TECLA_CANCELAR
+]
+
+COLORES = [
+    COLOR_BLANCO, 
+    COLOR_NEGRO, 
+    COLOR_ROJO, 
+    COLOR_CYAN, 
+    COLOR_AMARILLO, 
+    COLOR_VERDE
+]
+
