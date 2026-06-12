@@ -1,6 +1,6 @@
 import pygame
 import sys
-from config import ANCHO, ALTO, COLOR_NEGRO, FPS, CAPTION, ESCALA_BASE, TAM_TABLERO_POR_DEFECTO
+from config import ANCHO, ALTO, COLOR_NEGRO, FPS, CAPTION, ESCALA_BASE, TAM_TABLERO_POR_DEFECTO, COLORES_FICHAS, COLORES_CURSOR
 from game.scenes.escena_menu import MenuScene
 
 class GameState:
@@ -11,7 +11,16 @@ class GameState:
         self.escala_celda = ESCALA_BASE
         self.modo_infinito = False
         self.escena_actual = None
+    
+        # config colores
+        self.color_x_idx = 0
+        self.color_x = COLORES_FICHAS[0][1]
+        self.color_o_idx = 3
+        self.color_o = COLORES_FICHAS[3][1]
+        self.cursor_color_idx = 0
+        self.cursor_color = COLORES_CURSOR[0][1]
 
+        # estadisticas globales
         self.partidas_jugadas = 0
         self.victorias_x = 0
         self.victorias_o = 0
@@ -23,7 +32,8 @@ class GameState:
     def cambiar_tam_tablero(self, nuevo_tam):
         self.tam_tablero = nuevo_tam
         # Ajustar escala si es necesario (opcional)
-        self.escala_celda = max(20, 60 - (nuevo_tam-3)*10)
+        max_celdas = max(3, nuevo_tam)
+        self.escala_celda = max(15, min(35, 300 // (3 * max_celdas) * 10))
     
     def cambiar_modo_infinito(self, infinito):
         self.modo_infinito = infinito
@@ -34,8 +44,6 @@ class GameState:
 
     def crear_nuevo_juego(self):
         """Crea una nueva instancia del juego (mantiene estadísticas)"""
-        from game.logic import TresEnRaya
-        # No reiniciamos las estadísticas, solo creamos un nuevo juego
         pass
 
     def registrar_victoria_x(self):

@@ -6,7 +6,7 @@ from config import *
 class MenuScene(Escena):
     def __init__(self, game_state):
         self.game_state = game_state  # para compartir datos entre escenas
-        self.opciones = ["Iniciar Juego", "Modos de Juego", "Ver Estadísticas", "Salir"]
+        self.opciones = ["Iniciar Juego", "Modos de Juego", "Configuración", "Ver Estadísticas", "Salir"]
         self.seleccion = 0
         self.font_grande = pygame.font.Font(None, 48)
         self.font_mediana = pygame.font.Font(None, 36)
@@ -24,13 +24,21 @@ class MenuScene(Escena):
     def seleccionar_opcion(self):
         if self.opciones[self.seleccion] == "Iniciar Juego":
             from game.scenes.escena_juego import EscenaJuego
+            self.game_state.crear_nuevo_juego()
             self.game_state.cambiar_escena(EscenaJuego(self.game_state))
+
         elif self.opciones[self.seleccion] == "Modos de Juego":
             from game.scenes.escena_modo import ModoScene
             self.game_state.cambiar_escena(ModoScene(self.game_state))
+
+        elif self.opciones[self.seleccion] == "Configuración":
+            from game.scenes.escena_config import ConfiguracionScene
+            self.game_state.cambiar_escena(ConfiguracionScene(self.game_state))
+
         elif self.opciones[self.seleccion] == "Ver Estadísticas":
-            from game.scenes.escena_estadisticass import EstadisticasScene
+            from game.scenes.escena_estadisticas import EstadisticasScene
             self.game_state.cambiar_escena(EstadisticasScene(self.game_state))
+
         elif self.opciones[self.seleccion] == "Salir":
             pygame.quit()
             sys.exit()
